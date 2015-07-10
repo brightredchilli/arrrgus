@@ -7,19 +7,27 @@
 //
 
 import UIKit
+import AVFoundation
+
+func dispatch_on_main_queue_after(when: dispatch_time_t, block: dispatch_block_t) {
+    dispatch_after(2, dispatch_get_main_queue(), {
+        block()
+    })
+}
 
 class ViewController: UIViewController {
 
+    let capture = IPFastCapture()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        self.addPreviewLayer()
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func addPreviewLayer() {
+        let layer = AVCaptureVideoPreviewLayer(session: self.capture.captureSession)
+        layer.frame = self.view.bounds
+        self.view.layer.addSublayer(layer)
     }
-
-
 }
 
