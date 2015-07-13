@@ -9,20 +9,27 @@
 import Foundation
 import AVFoundation
 import UIKit
+import CoreGraphics
 
 let defaultError = NSError(domain: "", code: 0, userInfo: nil)
 
 /// Class that quickly captures outputs of an AVCaptureSession
-class IPFastCapture: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
+class IPFastCapture: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, G8TesseractDelegate {
 
     let captureSession = AVCaptureSession()
+    let tesseract: G8Tesseract
 
     override init() {
         output = AVCaptureVideoDataOutput()
+        tesseract = G8Tesseract(language: "eng")
 
         super.init()
 
         output.setSampleBufferDelegate(self, queue: outputDispatchQueue)
+        output.videoSettings = [kCVPixelBufferPixelFormatTypeKey  : NSNumber(int: Int32(kCVPixelFormatType_32BGRA.value))]
+
+
+
 
         queue.addOperationWithBlock { [unowned self] Void in
             do { try self.setUpCaptureSession() }
@@ -63,11 +70,44 @@ class IPFastCapture: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
     func captureOutput(captureOutput: AVCaptureOutput!,
         didOutputSampleBuffer sampleBuffer: CMSampleBuffer!,
         fromConnection connection: AVCaptureConnection!) {
-    }
+            if let buffer = sampleBuffer {
+                let image = convertSampleBufferToImage(buffer)
 
-    private func convertSampleBufferToImage(buffer: CMSampleBuffer) -> UIImage {
+            }
+    }
+    //https://github.com/gali8/Tesseract-OCR-iOS/wiki/Installation
+
+    //http://stackoverflow.com/questions/3152259/how-to-convert-a-cvimagebufferref-to-uiimage
+    private func convertSampleBufferToImage(sampleBuffer: CMSampleBuffer) -> UIImage {
+
+        if let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) {
+            CVPixelBufferLockBaseAddress(imageBuffer, 0)
+
+            let baseAddress = CVPixelBufferGetBaseAddress(imageBuffer)
+            let bytesPerRow = CVPixelBufferGetBytesPerRow(imageBuffer)
+            let width = CVPixelBufferGetWidth(imageBuffer)
+            let height = CVPixelBufferGetWidth(imageBuffer)
+
+            CVPixelBufferUnlockBaseAddress(imageBuffer, 0)
+
+            let colorSpace = CGColorSpaceCreateDeviceRGB()
+            let newContext = CGBitmapContextCreate(baseAddress,
+                width,
+                height,
+                8,
+                bytesPerRow,
+                colorSpace,
+                CGBitmapInfo.ByteOrder32Little.rawValue)
+
+            let newImage = CGBitmapContextCreateImage(newContext)
+            let image = UIImage(CGImage: newImage!, scale: 1, orientation: .Right)
+            return image
+        }
         return UIImage()
     }
+
+    // MARK: G8TesseractDelegate
+
 
     private let output: AVCaptureVideoDataOutput
 
