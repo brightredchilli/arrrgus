@@ -7,13 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		19AEC632F2BB37DEE7B78015 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B976E8EEFA27C4EF2ABF2F1 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		045FF5820EEB53D00606FD23 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 51CE6BDAC7DCD50DB377D0B8 /* libPods.a */; };
 		2E1852AB1B5044DA008C2191 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1852AA1B5044DA008C2191 /* AppDelegate.swift */; };
 		2E1852AD1B5044DA008C2191 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1852AC1B5044DA008C2191 /* ViewController.swift */; };
 		2E1852B01B5044DA008C2191 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2E1852AE1B5044DA008C2191 /* Main.storyboard */; };
 		2E1852B21B5044DA008C2191 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E1852B11B5044DA008C2191 /* Assets.xcassets */; };
 		2E1852B51B5044DA008C2191 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2E1852B31B5044DA008C2191 /* LaunchScreen.storyboard */; };
 		2E1852BE1B504543008C2191 /* FastCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1852BD1B504543008C2191 /* FastCapture.swift */; };
+		2EF24E791B506D6F00E3692C /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = 2EF24E781B506D6F00E3692C /* tessdata */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,8 +27,10 @@
 		2E1852B41B5044DA008C2191 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2E1852B61B5044DA008C2191 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2E1852BD1B504543008C2191 /* FastCapture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FastCapture.swift; sourceTree = "<group>"; };
+		2EF24E771B5069EA00E3692C /* ArtistLookup-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ArtistLookup-Bridging-Header.h"; sourceTree = "<group>"; };
+		2EF24E781B506D6F00E3692C /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tessdata; sourceTree = "<group>"; };
+		51CE6BDAC7DCD50DB377D0B8 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A83F2B82E2BE961FDD12A78 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		5B976E8EEFA27C4EF2ABF2F1 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,7 +38,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				19AEC632F2BB37DEE7B78015 /* Pods.framework in Frameworks */,
+				045FF5820EEB53D00606FD23 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +66,7 @@
 		2E1852A91B5044DA008C2191 /* ArtistLookup */ = {
 			isa = PBXGroup;
 			children = (
+				2EF24E781B506D6F00E3692C /* tessdata */,
 				2E1852AA1B5044DA008C2191 /* AppDelegate.swift */,
 				2E1852AC1B5044DA008C2191 /* ViewController.swift */,
 				2E1852BC1B50451E008C2191 /* Capture */,
@@ -70,6 +74,7 @@
 				2E1852B11B5044DA008C2191 /* Assets.xcassets */,
 				2E1852B31B5044DA008C2191 /* LaunchScreen.storyboard */,
 				2E1852B61B5044DA008C2191 /* Info.plist */,
+				2EF24E771B5069EA00E3692C /* ArtistLookup-Bridging-Header.h */,
 			);
 			path = ArtistLookup;
 			sourceTree = "<group>";
@@ -85,7 +90,7 @@
 		60BA50FE43D0A5927D4C07BB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				5B976E8EEFA27C4EF2ABF2F1 /* Pods.framework */,
+				51CE6BDAC7DCD50DB377D0B8 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -110,7 +115,6 @@
 				2E1852A31B5044DA008C2191 /* Sources */,
 				2E1852A41B5044DA008C2191 /* Frameworks */,
 				2E1852A51B5044DA008C2191 /* Resources */,
-				DB031A438A01FA5BC6AB0D72 /* Embed Pods Frameworks */,
 				6EACBA1B1D0579ECA80CAA98 /* Copy Pods Resources */,
 			);
 			buildRules = (
@@ -160,6 +164,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2E1852B51B5044DA008C2191 /* LaunchScreen.storyboard in Resources */,
+				2EF24E791B506D6F00E3692C /* tessdata in Resources */,
 				2E1852B21B5044DA008C2191 /* Assets.xcassets in Resources */,
 				2E1852B01B5044DA008C2191 /* Main.storyboard in Resources */,
 			);
@@ -181,21 +186,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		DB031A438A01FA5BC6AB0D72 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		DE1FFA440295569DC7CD6F2B /* Check Pods Manifest.lock */ = {
@@ -342,6 +332,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.intrepid.ArtistLookup;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/ArtistLookup-Bridging-Header.h";
 			};
 			name = Debug;
 		};
@@ -356,6 +347,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.intrepid.ArtistLookup;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/ArtistLookup-Bridging-Header.h";
 			};
 			name = Release;
 		};

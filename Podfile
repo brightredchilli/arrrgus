@@ -1,6 +1,4 @@
 
-use_frameworks!
-
 pod 'TesseractOCRiOS'
 
 
