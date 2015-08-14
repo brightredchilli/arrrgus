@@ -13,11 +13,16 @@ import CoreGraphics
 
 let defaultError = NSError(domain: "", code: 0, userInfo: nil)
 
+protocol IPFastCaptureDelegate {
+    func fastCaptureDidCaptureImage(image: UIImage, fastCapture: IPFastCapture)
+}
+
 /// Class that quickly captures outputs of an AVCaptureSession
 class IPFastCapture: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, G8TesseractDelegate {
 
     let captureSession = AVCaptureSession()
     let tesseract: G8Tesseract
+    var delegate: IPFastCaptureDelegate?
 
     override init() {
         output = AVCaptureVideoDataOutput()
@@ -27,9 +32,6 @@ class IPFastCapture: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, G8T
 
         output.setSampleBufferDelegate(self, queue: outputDispatchQueue)
         output.videoSettings = [kCVPixelBufferPixelFormatTypeKey  : NSNumber(int: Int32(kCVPixelFormatType_32BGRA.value))]
-
-
-
 
         queue.addOperationWithBlock { [unowned self] Void in
             do { try self.setUpCaptureSession() }
@@ -72,7 +74,7 @@ class IPFastCapture: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, G8T
         fromConnection connection: AVCaptureConnection!) {
             if let buffer = sampleBuffer {
                 let image = convertSampleBufferToImage(buffer)
-
+                delegate?.fastCaptureDidCaptureImage(image, fastCapture: self)
             }
     }
     //https://github.com/gali8/Tesseract-OCR-iOS/wiki/Installation
@@ -97,10 +99,10 @@ class IPFastCapture: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, G8T
                 8,
                 bytesPerRow,
                 colorSpace,
-                CGBitmapInfo.ByteOrder32Little.rawValue)
+                CGImageAlphaInfo.PremultipliedLast.rawValue)
 
             let newImage = CGBitmapContextCreateImage(newContext)
-            let image = UIImage(CGImage: newImage!, scale: 1, orientation: .Right)
+            let image = UIImage(CGImage: newImage!, scale: 2, orientation: .Right)
             return image
         }
         return UIImage()

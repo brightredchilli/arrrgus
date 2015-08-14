@@ -18,9 +18,11 @@ func dispatch_on_main_queue_after(when: dispatch_time_t, block: dispatch_block_t
 class ViewController: UIViewController {
 
     let capture = IPFastCapture()
+    let recognizer = ImageRecognizer()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        capture.delegate = recognizer
         self.addPreviewLayer()
     }
 
