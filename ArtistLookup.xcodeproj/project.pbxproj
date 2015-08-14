@@ -15,6 +15,7 @@
 		2E1852B51B5044DA008C2191 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2E1852B31B5044DA008C2191 /* LaunchScreen.storyboard */; };
 		2E1852BE1B504543008C2191 /* FastCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1852BD1B504543008C2191 /* FastCapture.swift */; };
 		2E1F639E1B7E6AB200F2EE41 /* ImageRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1F639D1B7E6AB200F2EE41 /* ImageRecognizer.swift */; };
+		2E94CF6D1B7E7BC6006C0972 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E94CF6C1B7E7BC6006C0972 /* ViewController.xib */; };
 		2EF24E791B506D6F00E3692C /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = 2EF24E781B506D6F00E3692C /* tessdata */; };
 /* End PBXBuildFile section */
 
@@ -29,6 +30,7 @@
 		2E1852B61B5044DA008C2191 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2E1852BD1B504543008C2191 /* FastCapture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FastCapture.swift; sourceTree = "<group>"; };
 		2E1F639D1B7E6AB200F2EE41 /* ImageRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageRecognizer.swift; sourceTree = "<group>"; };
+		2E94CF6C1B7E7BC6006C0972 /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
 		2EF24E771B5069EA00E3692C /* ArtistLookup-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ArtistLookup-Bridging-Header.h"; sourceTree = "<group>"; };
 		2EF24E781B506D6F00E3692C /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tessdata; sourceTree = "<group>"; };
 		51CE6BDAC7DCD50DB377D0B8 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -73,6 +75,7 @@
 				2E1852AC1B5044DA008C2191 /* ViewController.swift */,
 				2E1852BC1B50451E008C2191 /* Capture */,
 				2E1852AE1B5044DA008C2191 /* Main.storyboard */,
+				2E94CF6C1B7E7BC6006C0972 /* ViewController.xib */,
 				2E1852B11B5044DA008C2191 /* Assets.xcassets */,
 				2E1852B31B5044DA008C2191 /* LaunchScreen.storyboard */,
 				2E1852B61B5044DA008C2191 /* Info.plist */,
@@ -167,6 +170,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2E94CF6D1B7E7BC6006C0972 /* ViewController.xib in Resources */,
 				2E1852B51B5044DA008C2191 /* LaunchScreen.storyboard in Resources */,
 				2EF24E791B506D6F00E3692C /* tessdata in Resources */,
 				2E1852B21B5044DA008C2191 /* Assets.xcassets in Resources */,
