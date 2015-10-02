@@ -15,16 +15,15 @@ func dispatch_on_main_queue_after(when: dispatch_time_t, block: dispatch_block_t
     })
 }
 
-
-
 class ViewController: UIViewController, IPFastCaptureDelegate {
 
     let imageSize = CGSizeMake(1146, 1536)
-    let croppedSize = CGSizeMake(900, 400)
+    let croppedSize = CGSizeMake(1000, 400)
 
     var capture: IPFastCapture?
     let recognizer = ImageRecognizer()
 
+    @IBOutlet weak var outputLabel: UILabel!
     @IBOutlet var imageView: UIImageView!
     var debugView: UIView?
 
@@ -69,7 +68,8 @@ class ViewController: UIViewController, IPFastCaptureDelegate {
             width: croppedSize.width,
             height: croppedSize.height))
         imageView.image = resizedImage
-        recognizer.fastCaptureDidCaptureImage(croppedImage)
+        let text = recognizer.recognizeImage(croppedImage)
+        outputLabel.text = text
     }
 
     func addPreviewLayer() {

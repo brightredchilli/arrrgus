@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ImageRecognizer: NSObject, IPFastCaptureDelegate {
+class ImageRecognizer: NSObject {
 
     let tesseract: G8Tesseract
 
@@ -22,16 +22,13 @@ class ImageRecognizer: NSObject, IPFastCaptureDelegate {
         super.init()
     }
 
-    func recognizeImage(image: UIImage) {
+    func recognizeImage(image: UIImage) -> String? {
         // this is testing code, this will probably block this captureoutput thread
         tesseract.image = image;
         let success = tesseract.recognize()
         print("success? = \(success) language(\(tesseract.language)) recognizedText = \(tesseract.recognizedText)")
+
+        return success ? tesseract.recognizedText : nil
     }
 
-    // MARK: IPFastCaptureDelegate
-
-    func fastCaptureDidCaptureImage(image: UIImage) {
-        recognizeImage(image)
-    }
 }
