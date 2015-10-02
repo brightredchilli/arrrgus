@@ -22,14 +22,16 @@ class ImageRecognizer: NSObject, IPFastCaptureDelegate {
         super.init()
     }
 
+    func recognizeImage(image: UIImage) {
+        // this is testing code, this will probably block this captureoutput thread
+        tesseract.image = image;
+        let success = tesseract.recognize()
+        print("success? = \(success) language(\(tesseract.language)) recognizedText = \(tesseract.recognizedText)")
+    }
+
     // MARK: IPFastCaptureDelegate
 
     func fastCaptureDidCaptureImage(image: UIImage) {
-        // this is testing code, this will probably block this captureoutput thread
-        tesseract.image = image;
-        tesseract.rect = CGRectMake(0, 0, image.size.width, 700)
-        let success = tesseract.recognize()
-        print("success? = \(success) language(\(tesseract.language)) recognizedText = \(tesseract.recognizedText)")
-//        print("symbols = \(tesseract.recognizedBlocksByIteratorLevel(G8PageIteratorLevel.Symbol))")
+        recognizeImage(image)
     }
 }

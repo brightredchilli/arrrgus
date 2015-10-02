@@ -59,12 +59,4 @@ class ViewController: UIViewController, IPFastCaptureDelegate {
     }
 }
 
-extension CGRect {
-    func scaledRectWithScale(xScale: CGFloat, yScale: CGFloat widthScale: CGFloat heightScale: CGFloat) -> CGRect {
-        return CGRectMake(origin.x + xScale*size.width,
-            origin.y + yScale*size.height,
-            size.width * widthScale,
-        size.height * heightScale)
-    }
-}
 

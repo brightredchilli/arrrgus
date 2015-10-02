@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		045FF5820EEB53D00606FD23 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 51CE6BDAC7DCD50DB377D0B8 /* libPods.a */; };
+		2E133FA21B9A28050084D0E3 /* UIImage+Crop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E133FA11B9A28050084D0E3 /* UIImage+Crop.swift */; settings = {ASSET_TAGS = (); }; };
 		2E1852AB1B5044DA008C2191 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1852AA1B5044DA008C2191 /* AppDelegate.swift */; };
 		2E1852AD1B5044DA008C2191 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1852AC1B5044DA008C2191 /* ViewController.swift */; };
 		2E1852B01B5044DA008C2191 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2E1852AE1B5044DA008C2191 /* Main.storyboard */; };
@@ -15,12 +16,14 @@
 		2E1852B51B5044DA008C2191 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2E1852B31B5044DA008C2191 /* LaunchScreen.storyboard */; };
 		2E1852BE1B504543008C2191 /* FastCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1852BD1B504543008C2191 /* FastCapture.swift */; };
 		2E1F639E1B7E6AB200F2EE41 /* ImageRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1F639D1B7E6AB200F2EE41 /* ImageRecognizer.swift */; };
+		2E4CCE511BB5C1A800EDFD92 /* TestRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E4CCE501BB5C1A800EDFD92 /* TestRecognizer.swift */; settings = {ASSET_TAGS = (); }; };
 		2E94CF6D1B7E7BC6006C0972 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E94CF6C1B7E7BC6006C0972 /* ViewController.xib */; };
 		2EF24E791B506D6F00E3692C /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = 2EF24E781B506D6F00E3692C /* tessdata */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		146A86C36FFBE5C9A722EAED /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		2E133FA11B9A28050084D0E3 /* UIImage+Crop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Crop.swift"; sourceTree = "<group>"; };
 		2E1852A71B5044DA008C2191 /* ArtistLookup.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ArtistLookup.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E1852AA1B5044DA008C2191 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2E1852AC1B5044DA008C2191 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -30,6 +33,7 @@
 		2E1852B61B5044DA008C2191 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2E1852BD1B504543008C2191 /* FastCapture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FastCapture.swift; sourceTree = "<group>"; };
 		2E1F639D1B7E6AB200F2EE41 /* ImageRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageRecognizer.swift; sourceTree = "<group>"; };
+		2E4CCE501BB5C1A800EDFD92 /* TestRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestRecognizer.swift; sourceTree = "<group>"; };
 		2E94CF6C1B7E7BC6006C0972 /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
 		2EF24E771B5069EA00E3692C /* ArtistLookup-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ArtistLookup-Bridging-Header.h"; sourceTree = "<group>"; };
 		2EF24E781B506D6F00E3692C /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tessdata; sourceTree = "<group>"; };
@@ -73,6 +77,8 @@
 				2EF24E781B506D6F00E3692C /* tessdata */,
 				2E1852AA1B5044DA008C2191 /* AppDelegate.swift */,
 				2E1852AC1B5044DA008C2191 /* ViewController.swift */,
+				2E133FA11B9A28050084D0E3 /* UIImage+Crop.swift */,
+				2E4CCE501BB5C1A800EDFD92 /* TestRecognizer.swift */,
 				2E1852BC1B50451E008C2191 /* Capture */,
 				2E1852AE1B5044DA008C2191 /* Main.storyboard */,
 				2E94CF6C1B7E7BC6006C0972 /* ViewController.xib */,
@@ -219,8 +225,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				2E1852BE1B504543008C2191 /* FastCapture.swift in Sources */,
+				2E4CCE511BB5C1A800EDFD92 /* TestRecognizer.swift in Sources */,
 				2E1852AD1B5044DA008C2191 /* ViewController.swift in Sources */,
 				2E1852AB1B5044DA008C2191 /* AppDelegate.swift in Sources */,
+				2E133FA21B9A28050084D0E3 /* UIImage+Crop.swift in Sources */,
 				2E1F639E1B7E6AB200F2EE41 /* ImageRecognizer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
