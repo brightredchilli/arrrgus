@@ -15,11 +15,18 @@ func dispatch_on_main_queue_after(when: dispatch_time_t, block: dispatch_block_t
     })
 }
 
+
+
 class ViewController: UIViewController, IPFastCaptureDelegate {
+
+    let imageSize = CGSizeMake(1146, 1536)
+    let croppedSize = CGSizeMake(900, 400)
 
     var capture: IPFastCapture?
     let recognizer = ImageRecognizer()
+
     @IBOutlet var imageView: UIImageView!
+    var debugView: UIView?
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -33,23 +40,36 @@ class ViewController: UIViewController, IPFastCaptureDelegate {
         super.viewDidLoad()
         capture = IPFastCapture()
         capture?.delegate = self
+    }
 
-//        self.addPreviewLayer()
-//        recognizer.fastCaptureDidCaptureImage(UIImage(named:"naturebox")!)
-//        recognizer.fastCaptureDidCaptureImage(UIImage(named:"lightning")!)
-//        recognizer.fastCaptureDidCaptureImage(UIImage(named:"three_body")!)
+    override func viewDidLayoutSubviews() {
+        // do this in here so that view has proper size by then
+        setUpDebugView()
+    }
 
-        let updatedFrame = view.frame.scaledRectWithScale(0, yScale: 0.3, widthScale: 1, heightScale: 0.3)
+    func setUpDebugView() {
+        let ratio = imageView.frame.width/imageSize.width
+        debugView?.removeFromSuperview()
 
-        let debugView  = UIView()
-        imageView.addSubview(debugView)
-
+        debugView = {
+            let debugView = UIView()
+            imageView.addSubview(debugView)
+            debugView.autoAlignAxisToSuperviewAxis(.Horizontal)
+            debugView.autoAlignAxisToSuperviewAxis(.Vertical)
+            debugView.autoSetDimensionsToSize(croppedSize * ratio)
+            debugView.layer.borderColor = UIColor.redColor().CGColor
+            debugView.layer.borderWidth = 1;
+            return debugView
+        }()
     }
 
     func fastCaptureDidCaptureImage(image: UIImage) {
-        imageView.image = image
-        recognizer.fastCaptureDidCaptureImage(image)
-
+        let resizedImage = image.resizeImageWithAspectFill(imageSize)
+        let croppedImage = resizedImage.cropImageToRect(CGRect(center: CGPointMake(imageSize.width/2, imageSize.height/2),
+            width: croppedSize.width,
+            height: croppedSize.height))
+        imageView.image = resizedImage
+        recognizer.fastCaptureDidCaptureImage(croppedImage)
     }
 
     func addPreviewLayer() {

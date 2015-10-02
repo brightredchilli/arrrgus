@@ -1,9 +1,10 @@
 
+pod 'PureLayout'
 pod 'TesseractOCRiOS'
 
 
 post_install do |installer|
-  installer.project.targets.each do |target|
+  installer.pods_project.targets.each do |target|
     if target.name == 'Pods-TesseractOCRiOS'
       puts "Setting preprocessor macro for #{target.name}..."
       target.build_configurations.each do |config|

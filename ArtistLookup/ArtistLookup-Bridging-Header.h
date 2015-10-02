@@ -10,6 +10,7 @@
 #define ArtistLookup_Bridging_Header_h
 
 #import <TesseractOCR.h>
+#import <PureLayout.h>
 
 
 #endif /* ArtistLookup_Bridging_Header_h */
