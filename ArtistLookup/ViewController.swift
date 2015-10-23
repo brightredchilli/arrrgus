@@ -17,7 +17,7 @@ func dispatch_on_main_queue_after(when: dispatch_time_t, block: dispatch_block_t
 
 class ViewController: UIViewController, IPFastCaptureDelegate {
 
-    let imageSize = CGSizeMake(1080, 1920)
+    let targetImageSize = CGSizeMake(1080, 1920)
     let croppedSize = CGSizeMake(1000, 400)
 
     var capture: IPFastCapture?
@@ -43,7 +43,25 @@ class ViewController: UIViewController, IPFastCaptureDelegate {
     }
 
     override func viewDidLayoutSubviews() {
-        // do this in here so that view has proper size by then
+        // do this in here so that previewView has proper size by then
+        setUpPreviewViewIfNecessary()
+    }
+
+    func fastCaptureDidCaptureImage(image: UIImage) {
+        let resizedImage = image.resizeImageWithAspectFill(targetImageSize)
+        let croppedImage = resizedImage.cropImageToRect(CGRect(center: targetImageSize.center(),
+                                                        width: croppedSize.width,
+                                                        height: croppedSize.height))
+        var text : String! = nil;
+        let recognitionTime = executionTimeInterval {
+            text = self.recognizer.recognizeImage(croppedImage)
+        }
+        print("recognition time = \(recognitionTime)")
+
+        outputLabel.text = text
+    }
+
+    func setUpPreviewViewIfNecessary() {
         if !hasSetup {
             hasSetup = true
             addPreviewLayer()
@@ -51,8 +69,14 @@ class ViewController: UIViewController, IPFastCaptureDelegate {
         }
     }
 
+    func addPreviewLayer() {
+        let layer = AVCaptureVideoPreviewLayer(session: capture?.captureSession)
+        layer.frame = previewView.bounds
+        previewView.layer.insertSublayer(layer, atIndex: 0)
+    }
+
     func setUpDebugView() {
-        let ratio = previewView.frame.width/imageSize.width
+        let ratio = previewView.frame.width/targetImageSize.width
         debugView?.removeFromSuperview()
 
         debugView = {
@@ -64,22 +88,7 @@ class ViewController: UIViewController, IPFastCaptureDelegate {
             debugView.layer.borderColor = UIColor.redColor().CGColor
             debugView.layer.borderWidth = 1;
             return debugView
-        }()
-    }
-
-    func fastCaptureDidCaptureImage(image: UIImage) {
-        let resizedImage = image.resizeImageWithAspectFill(imageSize)
-        let croppedImage = resizedImage.cropImageToRect(CGRect(center: CGPointMake(imageSize.width/2, imageSize.height/2),
-            width: croppedSize.width,
-            height: croppedSize.height))
-        let text = recognizer.recognizeImage(croppedImage)
-        outputLabel.text = text
-    }
-
-    func addPreviewLayer() {
-        let layer = AVCaptureVideoPreviewLayer(session: capture?.captureSession)
-        layer.frame = previewView.bounds
-        previewView.layer.insertSublayer(layer, atIndex: 0)
+            }()
     }
 }
 

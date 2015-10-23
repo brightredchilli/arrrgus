@@ -62,3 +62,10 @@ extension UIImage {
 func * (lhs: CGSize, rhs: CGFloat) -> CGSize {
     return CGSizeMake(lhs.width * rhs, lhs.height * rhs)
 }
+
+extension CGSize {
+    // center point, assuming a 0,0 origin
+    func center() -> CGPoint {
+        return CGPointMake(self.width/2, self.height/2)
+    }
+}

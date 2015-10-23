@@ -26,7 +26,7 @@ class ImageRecognizer: NSObject {
         // this is testing code, this will probably block this captureoutput thread
         tesseract.image = image;
         let success = tesseract.recognize()
-        print("success? = \(success) language(\(tesseract.language)) recognizedText = \(tesseract.recognizedText)")
+//        print("success? = \(success) language(\(tesseract.language)) recognizedText = \(tesseract.recognizedText)")
 
         return success ? tesseract.recognizedText : nil
     }

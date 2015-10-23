@@ -17,6 +17,13 @@ protocol IPFastCaptureDelegate {
     func fastCaptureDidCaptureImage(image: UIImage)
 }
 
+func executionTimeInterval(block: () -> ()) -> CFTimeInterval {
+    let start = CACurrentMediaTime()
+    block();
+    let end = CACurrentMediaTime()
+    return end - start
+}
+
 /// Class that quickly captures outputs of an AVCaptureSession
 class IPFastCapture: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, G8TesseractDelegate {
 
@@ -34,7 +41,6 @@ class IPFastCapture: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, G8T
         queue.addOperationWithBlock { [unowned self] Void in
             do { try self.setUpCaptureSession() }
             catch {
-
             }
         }
         
@@ -70,12 +76,17 @@ class IPFastCapture: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, G8T
     func captureOutput(captureOutput: AVCaptureOutput!,
         didOutputSampleBuffer sampleBuffer: CMSampleBuffer!,
         fromConnection connection: AVCaptureConnection!) {
+            print("captureOutput:")
             if let buffer = sampleBuffer {
-                let image = convertSampleBufferToImage(buffer)
+                var image : UIImage! = nil;
+                let convertSampleBufferTimeInterval = executionTimeInterval({
+                    image = self.convertSampleBufferToImage(buffer);
+                })
+                print("convertSampleBufferToImage: \(convertSampleBufferTimeInterval)")
                 dispatch_sync(dispatch_get_main_queue(), { () -> Void in
+
                     self.delegate?.fastCaptureDidCaptureImage(image)
                 })
-
             }
     }
     //https://github.com/gali8/Tesseract-OCR-iOS/wiki/Installation
@@ -83,35 +94,33 @@ class IPFastCapture: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, G8T
     //http://stackoverflow.com/questions/3152259/how-to-convert-a-cvimagebufferref-to-uiimage
     private func convertSampleBufferToImage(sampleBuffer: CMSampleBuffer) -> UIImage {
 
-        if let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) {
-            CVPixelBufferLockBaseAddress(imageBuffer, 0)
+        guard let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return UIImage() }
 
-            let baseAddress = CVPixelBufferGetBaseAddress(imageBuffer)
-            let bytesPerRow = CVPixelBufferGetBytesPerRow(imageBuffer)
-            let width = CVPixelBufferGetWidth(imageBuffer)
-            let height = CVPixelBufferGetHeight(imageBuffer)
+        CVPixelBufferLockBaseAddress(imageBuffer, 0)
 
-            CVPixelBufferUnlockBaseAddress(imageBuffer, 0)
+        let baseAddress = CVPixelBufferGetBaseAddress(imageBuffer)
+        let bytesPerRow = CVPixelBufferGetBytesPerRow(imageBuffer)
+        let width = CVPixelBufferGetWidth(imageBuffer)
+        let height = CVPixelBufferGetHeight(imageBuffer)
+
+        CVPixelBufferUnlockBaseAddress(imageBuffer, 0)
 
         var info: UInt32 = CGImageAlphaInfo.PremultipliedFirst.rawValue
-            let little: UInt32 = CGBitmapInfo.ByteOrder32Little.rawValue
+        let little: UInt32 = CGBitmapInfo.ByteOrder32Little.rawValue
+        info = info | little
 
-            info = info | little
+        let colorSpace = CGColorSpaceCreateDeviceRGB()
+        let newContext = CGBitmapContextCreate(baseAddress,
+            width,
+            height,
+            8,
+            bytesPerRow,
+            colorSpace,
+            info)
 
-            let colorSpace = CGColorSpaceCreateDeviceRGB()
-            let newContext = CGBitmapContextCreate(baseAddress,
-                width,
-                height,
-                8,
-                bytesPerRow,
-                colorSpace,
-                info)
-
-            let newImage = CGBitmapContextCreateImage(newContext)
-            let image = UIImage(CGImage: newImage!, scale: 1, orientation: .Right)
-            return image
-        }
-        return UIImage()
+        let newImage = CGBitmapContextCreateImage(newContext)
+        let image = UIImage(CGImage: newImage!, scale: 1, orientation: .Right)
+        return image
     }
 
     // MARK: G8TesseractDelegate
